@@ -31,3 +31,6 @@ uploads/images/*
 
 # Agentes de IA usados en el proyecto
 .agents/
+
+# Skills Claude Code
+skills-lock.json
