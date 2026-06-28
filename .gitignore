@@ -1,0 +1,33 @@
+# Dependencias
+node_modules/
+
+# Archivos de entorno
+.env
+.env.local
+.env.production
+.env.development
+
+# Build
+dist/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Claude Code
+CLAUDE.md
+.claude/
+
+# Imágenes subidas por usuarios
+uploads/images/*
+
+# Mantener carpeta vacía en Git
+!uploads/images/.gitkeep
+
+# Agentes de IA usados en el proyecto
+.agents/
