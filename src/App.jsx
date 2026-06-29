@@ -36,6 +36,13 @@ export default function App() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [toasts, setToasts]           = useState([]);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 769px)');
+    const handleChange = (e) => { if (e.matches) setSidebarOpen(false); };
+    mq.addEventListener('change', handleChange);
+    return () => mq.removeEventListener('change', handleChange);
+  }, []);
   const [theme, setTheme] = useState(
     () => localStorage.getItem('trabajodiario_theme') || 'dark'
   );
@@ -227,12 +234,8 @@ export default function App() {
           <span className="app-header__title">TrabajoDiario</span>
         </div>
 
-        <span className="app-header__user-name-mobile" title={session.user.email}>
-          {session.user.email.split('@')[0]}
-        </span>
-
         {activeProject && (
-          <div className="app-header__center">
+          <div className="app-header__center app-header__desktop-only">
             <span className="app-header__col-count">
               {activeProject.columns.length} columnas
             </span>
@@ -246,7 +249,7 @@ export default function App() {
         )}
 
         <button
-          className="icon-btn app-header__theme-btn"
+          className="icon-btn app-header__theme-btn app-header__desktop-only"
           onClick={toggleTheme}
           aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
           title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
@@ -264,7 +267,7 @@ export default function App() {
         </button>
 
         <button
-          className="icon-btn app-header__settings-btn"
+          className="icon-btn app-header__settings-btn app-header__desktop-only"
           onClick={() => setThemeModalOpen(true)}
           aria-label="Configuración de apariencia"
           title="Apariencia"
@@ -275,7 +278,7 @@ export default function App() {
           </svg>
         </button>
 
-        <div className="app-header__user-group">
+        <div className="app-header__user-group app-header__desktop-only">
           <span className="app-header__user-name" title={session.user.email}>
             {session.user.email.split('@')[0]}
           </span>
@@ -303,6 +306,13 @@ export default function App() {
           onRenameProject={(id, name, color) => setProjectModal({ open: true, projectId: id, initialName: name, initialColor: color })}
           isOpen={sidebarOpen}
           onToggle={() => setSidebarOpen((v) => !v)}
+          userEmail={session.user.email}
+          onSignOut={handleSignOut}
+          currentTheme={theme}
+          onSelectTheme={handleSelectTheme}
+          activeProject={activeProject}
+          onAddColumn={() => setColumnModalOpen(true)}
+          onToggleTheme={toggleTheme}
         />
 
         <Board
