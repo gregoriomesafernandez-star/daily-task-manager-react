@@ -59,21 +59,33 @@ npm install
 Create a `.env.local` file and configure your Supabase project:
 
 ```env
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_publishable_key
 ```
 
 ---
 
 ## Database Setup
 
-Create a new Supabase project and create the following tables:
+This project uses Supabase with PostgreSQL as its database.
 
-- projects
-- columns
-- tasks
+To configure the database:
 
-The application uses foreign keys and Row Level Security (RLS) to ensure each user can only access their own data.
+1. Create a new project in Supabase.
+2. Open the SQL Editor in your Supabase dashboard.
+3. Open the DATABASE_SETUP.md file in this repository.
+4. Copy the complete SQL script from the file and paste it into the SQL Editor.
+5. Execute the script to create the database tables, relationships, indexes, and Row Level Security (RLS) policies.
+
+The script creates the following tables:
+
+- projects — Stores user projects.
+- columns — Stores the columns associated with each project.
+- tasks — Stores tasks associated with each column.
+
+It also configures foreign keys, indexes, and RLS policies to help ensure that authenticated users can only access and manage their own projects, columns, and tasks.
+
+Important: Configure your Supabase environment variables in the .env.local file before running the application. See the Installation section for details.
 
 ---
 
